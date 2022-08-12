@@ -1,4 +1,4 @@
-from flask import request
+from flask import request, current_app as app
 from flask_restx import Resource, Namespace
 
 from project.container import movie_service
@@ -16,6 +16,7 @@ class MoviesView(Resource):
     @movies_ns.response(200, description="Возвращает список фильмов")
     def get(self):
 
+        page = request.args.get("page", 1, type=int)
         fields = {}
 
         if request.args.get("director_id"):
@@ -26,10 +27,11 @@ class MoviesView(Resource):
             fields["year"] = int(request.args.get("year"))
 
         if fields:
-            all_movies = movie_service.get_by_fields(fields)
+            movies = movie_service.get_by_fields(page, app.config.get("MOVIES_PER_PAGE"), fields)
         else:
-            all_movies = movie_service.get_all()
-        return movies_schema.dump(all_movies), 200
+            movies = movie_service.get_all(page, app.config.get("MOVIES_PER_PAGE"))
+
+        return movies_schema.dump(movies), 200
 
     @movies_ns.response(201, description="Фильм успешно добавлен в фильмотеку")
     @movies_ns.response(404, description="Ошибка добавления фильма в фильмотеку")

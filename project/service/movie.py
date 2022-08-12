@@ -9,14 +9,14 @@ class MovieService:
     def create(self, data: dict):
         return self.dao.create(data)
 
-    def get_all(self):
-        return self.dao.get_all()
+    def get_all(self, page: int, per_page: int):
+        return self.dao.get_all(page, per_page)
 
     def get_by_id(self, mid: int):
         return self.dao.get_by_id(mid)
 
-    def get_by_fields(self, fields: dict):
-        return self.dao.get_by_fields(**fields)
+    def get_by_fields(self, page: int, per_page: int, fields: dict):
+        return self.dao.get_by_fields(page, per_page, **fields)
 
     def update(self, data: dict) -> bool:
         return self.dao.update(data)

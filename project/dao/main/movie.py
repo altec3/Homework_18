@@ -15,14 +15,14 @@ class MovieDAO:
 
         return movie
 
-    def get_all(self) -> list[Movie]:
-        return self.session.query(Movie).all()
+    def get_all(self, page: int, per_page: int) -> list[Movie]:
+        return self.session.query(Movie).paginate(page=page, per_page=per_page, error_out=False).items
 
     def get_by_id(self, did: int) -> Movie:
         return self.session.query(Movie).get_or_404(did)
 
-    def get_by_fields(self, **kwargs) -> list[Movie]:
-        return self.session.query(Movie).filter_by(**kwargs).all()
+    def get_by_fields(self, page: int, per_page: int, **kwargs) -> list[Movie]:
+        return self.session.query(Movie).filter_by(**kwargs).paginate(page=page, per_page=per_page, error_out=False).items
 
     def update(self, data: dict) -> bool:
         mid = data.get('id')

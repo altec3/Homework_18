@@ -18,3 +18,5 @@ class Config:
     DIRECTORS_DATA = "project/setup/db/fixtures/directors.json"
     GENRES_DATA = "project/setup/db/fixtures/genres.json"
     MOVIES_DATA = "project/setup/db/fixtures/movies.json"
+
+    MOVIES_PER_PAGE = 10
