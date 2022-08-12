@@ -1,6 +1,8 @@
+# Models for SQLAlchemy and Marshmallow
+
 from marshmallow import Schema, fields, validate
 
-from project.setup.db_init import db
+from project.setup.db.db_init import db
 from project.dao.model.director import Director # noqa
 from project.dao.model.genre import Genre # noqa
 

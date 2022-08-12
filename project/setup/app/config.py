@@ -14,6 +14,7 @@ class Config:
     JSONIFY_PRETTYPRINT_REGULAR = True
     RESTX_JSON = {'ensure_ascii': False}
 
-    # DIRECTORS_DATA = "project/setup/fixtures/directors.json"
-    # GENRES_DATA = "project/setup/fixtures/genres.json"
-    # MOVIES_DATA = "project/setup/fixtures/movies.json"
+    # To fill the database
+    DIRECTORS_DATA = "project/setup/db/fixtures/directors.json"
+    GENRES_DATA = "project/setup/db/fixtures/genres.json"
+    MOVIES_DATA = "project/setup/db/fixtures/movies.json"

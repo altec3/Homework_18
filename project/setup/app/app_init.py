@@ -1,6 +1,6 @@
 from flask import Flask
 
-from project.setup.config import Config
+from project.setup.app.config import Config
 
 
 def app_init(config: Config) -> Flask:
