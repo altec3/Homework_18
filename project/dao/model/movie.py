@@ -3,8 +3,8 @@
 from marshmallow import Schema, fields, validate
 
 from project.setup.db.db_init import db
-from project.dao.model.director import Director # noqa
-from project.dao.model.genre import Genre # noqa
+from project.dao.model.director import Director, DirectorSchema
+from project.dao.model.genre import Genre, GenreSchema
 
 
 class Movie(db.Model):
@@ -32,3 +32,6 @@ class MovieSchema(Schema):
     rating = fields.Integer()
     genre_id = fields.Integer()
     director_id = fields.Integer()
+
+    genre = fields.Nested(GenreSchema)
+    director = fields.Nested(DirectorSchema)
