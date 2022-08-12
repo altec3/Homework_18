@@ -15,6 +15,9 @@ class MovieService:
     def get_by_id(self, mid: int):
         return self.dao.get_by_id(mid)
 
+    def get_by_fields(self, fields: dict):
+        return self.dao.get_by_fields(**fields)
+
     def update(self, data: dict) -> bool:
         return self.dao.update(data)
 

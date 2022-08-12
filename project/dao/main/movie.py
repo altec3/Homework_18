@@ -21,6 +21,9 @@ class MovieDAO:
     def get_by_id(self, did: int) -> Movie:
         return self.session.query(Movie).get_or_404(did)
 
+    def get_by_fields(self, **kwargs) -> list[Movie]:
+        return self.session.query(Movie).filter_by(**kwargs).all()
+
     def update(self, data: dict) -> bool:
         mid = data.get('id')
         if self.session.query(Movie).filter(Movie.id == mid).update(data):

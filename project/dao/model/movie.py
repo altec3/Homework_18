@@ -16,8 +16,8 @@ class Movie(db.Model):
     trailer = db.Column(db.String(255))
     year = db.Column(db.Integer)
     rating = db.Column(db.Integer)
-    genre_id = db.Column(db.Integer, db.ForeignKey("genre.id"))
-    director_id = db.Column(db.Integer, db.ForeignKey("director.id"))
+    genre_id = db.Column(db.Integer, db.ForeignKey(f"{Genre.__tablename__}.id"))
+    director_id = db.Column(db.Integer, db.ForeignKey(f"{Director.__tablename__}.id"))
 
     genre = db.relationship("Genre")
     director = db.relationship("Director")

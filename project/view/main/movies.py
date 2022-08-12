@@ -15,7 +15,20 @@ class MoviesView(Resource):
 
     @movies_ns.response(200, description="Возвращает список фильмов")
     def get(self):
-        all_movies = movie_service.get_all()
+
+        fields = {}
+
+        if request.args.get("director_id"):
+            fields["director_id"] = int(request.args.get("director_id"))
+        if request.args.get("genre_id"):
+            fields["genre_id"] = int(request.args.get("genre_id"))
+        if request.args.get("year"):
+            fields["year"] = int(request.args.get("year"))
+
+        if fields:
+            all_movies = movie_service.get_by_fields(fields)
+        else:
+            all_movies = movie_service.get_all()
         return movies_schema.dump(all_movies), 200
 
     @movies_ns.response(201, description="Фильм успешно добавлен в фильмотеку")
