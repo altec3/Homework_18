@@ -1,4 +1,4 @@
-from flask import request, current_app as app
+from flask import request, current_app as app, url_for
 from flask_restx import Resource, Namespace
 
 from project.container import movie_service
@@ -13,7 +13,7 @@ movie_schema = MovieSchema()
 @movies_ns.route("/")
 class MoviesView(Resource):
 
-    @movies_ns.response(200, description="Возвращает список фильмов")
+    @movies_ns.response(200, description="OK")
     def get(self):
 
         page = request.args.get("page", 1, type=int)
@@ -33,8 +33,8 @@ class MoviesView(Resource):
 
         return movies_schema.dump(movies), 200
 
-    @movies_ns.response(201, description="Фильм успешно добавлен в фильмотеку")
-    @movies_ns.response(404, description="Ошибка добавления фильма в фильмотеку")
+    @movies_ns.response(201, description="Created", headers={'Location': 'The URL of a newly created movie'})
+    @movies_ns.response(404, description="Not Found")
     def post(self):
         try:
             movie: dict = movie_schema.load(request.json)
@@ -42,20 +42,20 @@ class MoviesView(Resource):
         except Exception:
             return "", 400
         else:
-            return movie_schema.dump(response), 201
+            return movie_schema.dump(response), 201, {'Location': url_for('movies_movie_view', mid=response.id)}
 
 
 @movies_ns.route("/<int:mid>")
 class MovieView(Resource):
 
-    @movies_ns.response(200, description="Возвращает фильм по его ID")
-    @movies_ns.response(404, description="Фильм с данным ID не найден в фильмотеке")
+    @movies_ns.response(200, description="OK")
+    @movies_ns.response(404, description="Not Found")
     def get(self, mid: int):
         movie = movie_service.get_by_id(mid)
         return movie_schema.dump(movie), 200
 
-    @movies_ns.response(204, description="Данные по фильму успешно обновлены")
-    @movies_ns.response(404, description="Ошибка обновления данных фильма")
+    @movies_ns.response(204, description="No Content")
+    @movies_ns.response(404, description="Not Found")
     def put(self, mid: int):
         data: dict = request.json
         data['id'] = mid
@@ -63,8 +63,8 @@ class MovieView(Resource):
             return "", 204
         return "", 404
 
-    @movies_ns.response(204, description="Фильм успешно удален из фильмотеки")
-    @movies_ns.response(404, description="Фильм с данным ID не найден в фильмотеке")
+    @movies_ns.response(204, description="No Content")
+    @movies_ns.response(404, description="Not Found")
     def delete(self, mid: int):
         if movie_service.delete(mid):
             return "", 204

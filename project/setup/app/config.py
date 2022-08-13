@@ -19,4 +19,5 @@ class Config:
     GENRES_DATA = "project/setup/db/fixtures/genres.json"
     MOVIES_DATA = "project/setup/db/fixtures/movies.json"
 
+    # For paginate
     MOVIES_PER_PAGE = 10
