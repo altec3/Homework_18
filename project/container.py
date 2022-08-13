@@ -1,4 +1,4 @@
-from project.setup.db.db_init import db
+from project.setup.db import db
 from project.dao.main.director import DirectorDAO
 from project.dao.main.genre import GenreDAO
 from project.dao.main.movie import MovieDAO

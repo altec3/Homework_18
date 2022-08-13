@@ -1,6 +1,6 @@
 from flask import Flask
 
-from project.setup.db.db_init import db
+from project.setup.db import db
 from project.setup.api.api_init import api
 from project.view.main.directors import directors_ns
 from project.view.main.genres import genres_ns

@@ -2,7 +2,7 @@
 
 from marshmallow import Schema, fields, validate
 
-from project.setup.db.db_init import db
+from project.setup.db import db
 from project.dao.model.director import Director, DirectorSchema
 from project.dao.model.genre import Genre, GenreSchema
 
@@ -21,6 +21,9 @@ class Movie(db.Model):
 
     genre = db.relationship("Genre")
     director = db.relationship("Director")
+
+    def __repr__(self):
+        return f'<Movie {self.title}>'
 
 
 class MovieSchema(Schema):

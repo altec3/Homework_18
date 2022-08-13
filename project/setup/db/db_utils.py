@@ -3,7 +3,7 @@ from flask import Flask
 from project.dao.model.director import Director
 from project.dao.model.genre import Genre
 from project.dao.model.movie import Movie
-from project.setup.db.db_init import db
+from project.setup.db import db
 from utils import load_json
 
 

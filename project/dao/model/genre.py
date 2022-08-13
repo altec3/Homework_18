@@ -2,7 +2,7 @@
 
 from marshmallow import Schema, fields, validate
 
-from project.setup.db.db_init import db
+from project.setup.db import db
 
 
 class Genre(db.Model):
@@ -10,6 +10,9 @@ class Genre(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255))
+
+    def __repr__(self):
+        return f'<Genre {self.name}>'
 
 
 class GenreSchema(Schema):
