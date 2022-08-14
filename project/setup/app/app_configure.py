@@ -1,7 +1,7 @@
 from flask import Flask
 
 from project.setup.db import db
-from project.setup.api.api_init import api
+from project.setup.api import api
 from project.view.main.directors import directors_ns
 from project.view.main.genres import genres_ns
 from project.view.main.movies import movies_ns
